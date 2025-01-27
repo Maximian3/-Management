@@ -1,0 +1,293 @@
+/* Общие стили */
+body {
+    background-image: url('/static/euro100.jpg');
+    background-size: cover; /* Растягиваем изображение на весь экран */
+    background-position: center; /* Центрируем изображение */
+    background-attachment: fixed; /* Закрепляем изображение при прокрутке */
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    font-size: 21px;
+    background-color: rgba(255, 255, 255, 0.901);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 70px;
+    margin-top: 20px;
+    font-size: 45px;
+}
+
+header h1 {
+    color: #444;
+    font-size: 30px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #30c455;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #0d8e6bdb;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+
+
+
+/* Стили для графика */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.chart-container img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+
+
+
+/* Стили для списка расходов */
+.expense-list {
+    list-style: none;
+    padding: 0;
+}
+
+.expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.expense-details {
+    font-size: 16px;
+}
+
+.expense-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.expense-actions .btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.edit-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    font-size: 30 px;
+    
+}
+
+.edit-btn:hover {
+    background-color: #2980b9;
+}
+
+.btn save-btn {
+    font-size: 18 px;
+}
+
+
+
+
+
+/* Стили для списка подписок */
+.subscription-list {
+    list-style: none;
+    padding: 0;
+}
+
+.subscription-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.subscription-details {
+    font-size: 16px;
+}
+
+.subscription-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.subscription-actions .btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.edit-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    
+}
+
+.edit-btn:hover {
+    background-color: #2980b9;
+}
+
+
+
+
+/* Стили для списка доходов */
+.income-list {
+    list-style: none;
+    padding: 0;
+}
+
+.income-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.income-details {
+    font-size: 16px;
+}
+
+.income-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.income-actions .btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+/* Стили для формы добавления */
+.subscription-form, .income-form {
+    display: grid;
+    gap: 15px;
+}
+
+.input-field {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 21%;
+}
+
+.input-field:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+.btn.add-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.btn.add-btn:hover {
+    background-color: #32e01e;
+}
+
+.add-expense form {
+    display: grid;
+    gap: 15px;
+    
+}
+
+.add-expense  {
+    display: grid;
+    gap: 15px;
+    text-align: center; 
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+
+/* Stile for Expense statistics */
+
+.income {
+    color: green; /* Цвет для дохода */
+  }
+  
+  .expense {
+    color: red; /* Цвет для расходов */
+  }
+  
+  .balance {
+    color: blue; /* Цвет для баланса */
+  }
+
+
+
+.statistics {
+    margin-top: 20px;
+}

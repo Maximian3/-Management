@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            
+            <nav>
+                <a href="/">Expense</a>
+                <a href="/subscriptions">Subscriptions</a>
+                <a href="/incomes">Income</a>
+            </nav>
+
+            <h1>Subscription Management</h1>
+        </header>
+
+        <section class="subscriptions">
+            <h2>All subscriptions</h2>
+            <ul class="subscription-list">
+                {% for subscription in subscriptions %}
+                    <li class="subscription-item">
+                        <div class="subscription-details">
+                            <span class="subscription-name">{{ subscription[1] }}</span> - 
+                            <span class="subscription-amount">{{ subscription[2] }}€</span>
+                            <span class="subscription-next-payment"> (Next payment: {{ subscription[3] }})</span>
+                        </div>
+                        <div class="subscription-actions">
+                            <form action="/delete_subscription/{{ subscription[0] }}" method="POST" class="subscription-form">
+                                <button type="submit" class="btn delete-btn">Delete</button>
+                            </form>
+                            <a href="/edit_subscription/{{ subscription[0] }}" class="btn edit-btn">Edit</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        
+            <!-- График подписок -->
+            {% if chart %}
+            <h2>Subscriptions Chart</h2>
+            <img src="data:image/png;base64,{{ chart }}" alt="Subscriptions Chart">
+            {% else %}
+            <p>No subscriptions to display on the chart.</p>
+            {% endif %}
+
+            <h1>Budget Statistics:</h1>
+
+            <p class="expense"> Subscriptions This Month: {{ monthly_subscriptions }}</p>
+            
+            
+        <section class="add-expense">
+            <h2>Add subscription</h2>
+            <form action="/add_subscription" method="POST" class="subscription-form">
+                <input type="text" name="name" placeholder="Subscription name" required class="input-field">
+                <input type="number" step="0.01" name="amount" placeholder="Sum" required class="input-field">
+                <input type="date" name="next_payment" required class="input-field">
+                <button type="submit" class="btn add-btn">Add</button>
+            </form>
+        </section>
+
+    </div>
+</body>
+</html>

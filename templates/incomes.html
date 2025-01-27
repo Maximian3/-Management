@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+           
+            <nav>
+                <a href="/">Expense</a>
+                <a href="/subscriptions">Subscriptions</a>
+                <a href="/incomes">Income</a>
+            </nav>
+
+            <h1>Income Management</h1>
+        </header>
+
+        <section class="incomes">
+            <h2>All income</h2>
+            <ul class="income-list">
+                {% for income in incomes %}
+                    <li class="income-item">
+                        <div class="income-details">
+                            <span class="income-source">{{ income['source'] }}</span> - 
+                            <span class="income-amount">{{ income['amount'] }}€</span>
+                            <span class="income-date"> (Date: {{ income['date'] }})</span>
+                        </div>
+                        <div class="income-actions">
+                            <form action="/delete_income/{{ income['id'] }}" method="POST" class="income-form">
+                                <button type="submit" class="btn delete-btn">Delete</button>
+                            </form>
+                            <a href="/edit_income/{{ income['id'] }}" class="btn edit-btn">Edit</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h2>Add income</h2>
+            <form action="/add_income" method="POST" class="income-form">
+                <input type="text" name="source" placeholder="Source of income" required class="input-field">
+                <input type="number" step="0.01" name="amount" placeholder="Sum" required class="input-field">
+                <input type="date" name="date" required class="input-field">
+                <button type="submit" class="btn add-btn">Add</button>
+
+
+                
+            </form>
+
+            <img src="data:image/png;base64,{{ chart }}" alt="Income Chart" class="chart">
+
+
+        </section>
+
+        <section class="statistics">
+            <h2>Expense statistics</h2>
+            <p>Total income: {{ total_incomes }}€</p>
+
+            
+        </section>
+    </div>
+</body>
+</html>
