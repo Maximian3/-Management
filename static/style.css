@@ -1,9 +1,9 @@
-/* Общие стили */
+/* Main Styles */
 body {
     background-image: url('/static/euro100.jpg');
-    background-size: cover; /* Растягиваем изображение на весь экран */
-    background-position: center; /* Центрируем изображение */
-    background-attachment: fixed; /* Закрепляем изображение при прокрутке */
+    background-size: cover; /* Stretch the image to full screen */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Fixing an image when scrolling */
     font-family: 'Verdana', sans-serif;
     margin: 0;
     padding: 0;
@@ -15,47 +15,80 @@ body {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    font-size: 21px;
-    background-color: rgba(255, 255, 255, 0.901);
+    font-size: 25px;
+    background-color: rgba(250, 227, 144, 0.938);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
 }
 
+/* Common styles for header */
 header {
-    text-align: center;
-    margin-bottom: 70px;
-    margin-top: 20px;
-    font-size: 45px;
-}
-
-header h1 {
-    color: #444;
-    font-size: 30px;
-}
-
-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #30c455;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: #0d8e6bdb;
-}
+    background-color: #003366; /* Dark blue background */
+    color: rgb(103, 158, 2); /* White text */
+    padding: 10px 21px; /* Indents inside header */
+    display: flex;
+    justify-content: space-between; /* Positioning navigation and header on the edges */
+    align-items: center; /* Centering vertically */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+  }
+  
+  /* Navigation */
+  nav {
+    display: flex;
+    gap: 20px; /* Indents between links */
+  }
+  
+  nav a {
+    color: white; /* White links */
+    text-decoration: none; 
+    font-size: 21px; 
+    font-weight: bold; 
+    transition: color 0.3s ease; /* Smooth color transition*/
+  }
+  
+  nav a:hover {
+    color:rgb(103, 158, 2);  /* Hover color  */
+  }
+  
+  /* Headline */
+  h1 {
+    font-size: 2rem; /* Header size */
+    font-family: 'Arial', sans-serif; /* Font for the title */
+    margin: 0; /* Removing indents */
+    font-weight: bold; /* Bold text */
+  }
+  
+  /* Adaptability (mobile version) */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column; /* The line becomes vertical */
+      align-items: flex-start; /* Aligning elements to the left */
+    }
+  
+    nav {
+      flex-direction: column; /* One Column Navigation */
+      gap: 10px; 
+    }
+  
+    h1 {
+      font-size: 1.5rem; /* Smaller header size on mobile devices */
+    }
+  }
+  
 
 h2 {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 15px;
     color: #444;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 8px solid #2e7c88;
     padding-bottom: 10px;
 }
 
 
 
 
-/* Стили для графика */
+/* Styles for the chart */
 .chart-container {
     display: flex;
     justify-content: center;
@@ -70,7 +103,7 @@ h2 {
 
 
 
-/* Стили для списка расходов */
+/* Styles for the expense list */
 .expense-list {
     list-style: none;
     padding: 0;
@@ -81,7 +114,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #7e4703;
 }
 
 .expense-details {
@@ -104,6 +137,7 @@ h2 {
     background-color: #e74c3c;
     color: white;
     border: none;
+    font-size: 30 px;
 }
 
 .delete-btn:hover {
@@ -129,8 +163,7 @@ h2 {
 
 
 
-
-/* Стили для списка подписок */
+/* Styles for the subscription list */
 .subscription-list {
     list-style: none;
     padding: 0;
@@ -141,7 +174,8 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #7e4703;
+    
 }
 
 .subscription-details {
@@ -164,6 +198,7 @@ h2 {
     background-color: #e74c3c;
     color: white;
     border: none;
+    font-size: 30 px;
 }
 
 .delete-btn:hover {
@@ -178,13 +213,13 @@ h2 {
 }
 
 .edit-btn:hover {
-    background-color: #2980b9;
+    background-color: #f8b51a;
 }
 
 
 
 
-/* Стили для списка доходов */
+/* Income List Styles */
 .income-list {
     list-style: none;
     padding: 0;
@@ -195,7 +230,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #7e4703;
 }
 
 .income-details {
@@ -216,19 +251,13 @@ h2 {
 
 
 
-/* Стили для формы добавления */
+/* Add form style */
 .subscription-form, .income-form {
     display: grid;
     gap: 15px;
 }
 
-.input-field {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 21%;
-}
+
 
 .input-field:focus {
     border-color: #0066cc;
@@ -275,19 +304,161 @@ ul li {
 /* Stile for Expense statistics */
 
 .income {
-    color: green; /* Цвет для дохода */
+    color: green; 
   }
   
   .expense {
-    color: red; /* Цвет для расходов */
+    color: red; 
   }
   
   .balance {
-    color: blue; /* Цвет для баланса */
+    color: blue; 
   }
 
 
 
 .statistics {
     margin-top: 20px;
+}
+
+.export-buttons-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.export-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+}
+
+.export-csv {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.export-csv:hover {
+    background-color: #45a049;
+}
+
+.export-excel {
+    background-color: #007bff;
+    color: white;
+}
+
+.export-excel:hover {
+    background-color: #0056b3;
+}
+
+
+.export-buttons-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.export-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+}
+
+.export-csv {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.export-csv:hover {
+    background-color: #45a049;
+}
+
+.export-excel {
+    background-color: #007bff;
+    color: white;
+}
+
+.export-excel:hover {
+    background-color: #0056b3;
+}
+
+.export-btn i {
+    font-size: 20px;
+}
+
+
+.import-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.input-label {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-field {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 97.5%;
+}
+
+.import-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.import-btn:hover {
+    transform: translateY(-2px);
+}
+
+.import-btn i {
+    font-size: 20px;
+}
+
+.import-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.import-btn:hover {
+    background-color: #0056b3;
 }
