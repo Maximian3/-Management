@@ -14,9 +14,9 @@
                 <a href="/">Expense</a>
                 <a href="/subscriptions">Subscriptions</a>
                 <a href="/incomes">Income</a>
+                <a href="{{ url_for('reports') }}">Reports</a>
             </nav>
-
-            <h1>Subscription Management</h1>
+            <h1>Subscriptions</h1>
         </header>
 
         <section class="subscriptions">
@@ -38,8 +38,19 @@
                     </li>
                 {% endfor %}
             </ul>
-        
-            <!-- График подписок -->
+
+            <section class="add-expense">
+            
+                <h2>Add subscription</h2>
+                <form action="/add_subscription" method="POST" class="subscription-form">
+                    <input type="text" name="name" placeholder="Subscription name" required class="input-field">
+                    <input type="number" step="0.01" name="amount" placeholder="Sum" required class="input-field">
+                    <input type="date" name="next_payment" required class="input-field">
+                    <button type="submit" class="btn add-btn">Add</button>
+                </form>
+            </section>
+
+            <!-- Subscription schedule -->
             {% if chart %}
             <h2>Subscriptions Chart</h2>
             <img src="data:image/png;base64,{{ chart }}" alt="Subscriptions Chart">
@@ -49,18 +60,9 @@
 
             <h1>Budget Statistics:</h1>
 
+            <p class="expense"> Subscriptions: {{ total_subscriptions }}</p>
             <p class="expense"> Subscriptions This Month: {{ monthly_subscriptions }}</p>
             
-            
-        <section class="add-expense">
-            <h2>Add subscription</h2>
-            <form action="/add_subscription" method="POST" class="subscription-form">
-                <input type="text" name="name" placeholder="Subscription name" required class="input-field">
-                <input type="number" step="0.01" name="amount" placeholder="Sum" required class="input-field">
-                <input type="date" name="next_payment" required class="input-field">
-                <button type="submit" class="btn add-btn">Add</button>
-            </form>
-        </section>
 
     </div>
 </body>
