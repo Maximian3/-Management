@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,7 @@
                 <a href="/">Expense</a>
                 <a href="/subscriptions">Subscriptions</a>
                 <a href="/incomes">Income</a>
+                <a href="{{ url_for('reports') }}">Reports</a>
             </nav>
 
             <h1>Income Management</h1>
@@ -57,7 +58,9 @@
 
         <section class="statistics">
             <h2>Expense statistics</h2>
-            <p>Total income: {{ total_incomes }}€</p>
+
+            <p>Total income per Month: {{ current_month_incomes }}€</p>
+            <p>Total income for the "entire period": {{ total_incomes }}€</p>
 
             
         </section>
