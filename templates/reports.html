@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="/">Expense</a>
+                <a href="/subscriptions">Subscriptions</a>
+                <a href="/incomes">Income</a>
+                <a href="/reports">Reports</a>
+            </nav>
+            <h1>Reports Management</h1>
+        </header>
+
+        <section class="reports">
+            <h2>Visualization</h2>
+            <h3>Expenses by Category</h3>
+            <img src="data:image/png;base64,{{ chart }}" alt="Reports Chart" class="chart">
+
+            <h3>Monthly Income vs Expenses</h3>
+            <img src="data:image/png;base64,{{ chart2 }}" alt="Monthly Income and Expenses Chart" class="chart">
+
+        </section>
+
+        <section class="statistics">
+            <h2>Current month Expense/Income statistic </h2>
+            <p>Current month income : {{ current_month_incomes }}€</p>
+            <p>Current month expenses: {{ current_month_total_expenses }}€</p>
+            <p>Current month balance: {{ current_month_balance }}€</p>
+            
+        </section>
+
+        <section class="statistics">
+            <h2>Expense/Income statistics</h2>
+            <p>Total income: {{ total_incomes }}€</p>
+            <p>Total expenses: {{ total_expenses }}€</p>
+            <p>Balance: {{ balance }}€</p>
+            
+        </section>
+
+        <section class="statistics">
+            <h2>Subscriptions statistics</h2>
+           
+            <p>Total subscriptions: {{ total_subscriptions }}€</p>
+            <p>Total subscriptions this month: {{ current_month_subscriptions }}€</p>
+            
+        </section>
+
+        <h2>Export Data</h2>
+        <div class="export-buttons-container">
+            <a href="{{ url_for('export_data', format='csv') }}" class="btn export-btn export-csv">
+                <i class="fas fa-file-csv"></i> Export as CSV
+            </a>
+            <a href="{{ url_for('export_data', format='excel') }}" class="btn export-btn export-excel">
+                <i class="fas fa-file-excel"></i> Export as Excel
+            </a>
+        </div>
+
+        <head>
+            <!-- Connect Font Awesome  Style -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        </head>
+        
+
+            <h2>Import Data</h2>
+            <form action="{{ url_for('import_data') }}" method="post" enctype="multipart/form-data" class="import-form">
+                <label for="file" class="input-label">
+                    <i class="fas fa-upload"></i> Select File:
+                </label>
+                <input type="file" name="file" id="file" class="input-field">
+                <button type="submit" class="btn import-btn">
+                    <i class="fas fa-cloud-upload-alt"></i> Import
+                </button>
+            </form>
+
+
+    </div>
+</body>
+</html>
