@@ -579,10 +579,6 @@ def export_data(format):
         return "Invalid format", 400
 
 
-
-import pandas as pd
-from flask import request, redirect, url_for
-
 @app.route('/import', methods=['POST'])
 def import_data():
     file = request.files.get('file')
