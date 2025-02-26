@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import matplotlib
+import numpy as np
 matplotlib.use('Agg')  
 import matplotlib.pyplot as plt
 import base64
@@ -464,10 +465,8 @@ def reports():
     incomes_df['month'] = incomes_df['date'].dt.to_period('M')
 
     monthly_expenses = expenses_df.groupby('month')['amount'].sum()
-    # test monthly_subscriptions = subscriptions_df.groupby('month')['amount'].sum()
     monthly_subscriptions = round(subscriptions_df.groupby('month')['amount'].sum(), 2)
     monthly_incomes = incomes_df.groupby('month')['amount'].sum()
-
 
     # Summarizing expenses and subscriptions
     total_monthly_expenses = monthly_expenses.add(monthly_subscriptions, fill_value=0)
@@ -487,6 +486,15 @@ def reports():
     ax.set_ylabel('Amount', fontsize=12)
     ax.legend()
     ax.grid(True, linestyle='--', alpha=0.6)
+
+    # Annotating the amounts on the graph
+    for month, expense in total_monthly_expenses.items():
+        ax.annotate(f'{expense:.2f}', xy=(month.ordinal - 1, expense), xytext=(5, 5),
+                    textcoords='offset points', color='red', fontsize=10)
+    
+    for month, income in monthly_incomes.items():
+        ax.annotate(f'{income:.2f}', xy=(month.ordinal - 1, income), xytext=(5, 5),
+                    textcoords='offset points', color='green', fontsize=10)
 
     # Save the graph to the buffer
     img = BytesIO()
@@ -521,10 +529,72 @@ def reports():
     img_base64 = base64.b64encode(img.read()).decode('utf-8')
     plt.close(fig)
 
+  # We calculate forecasts for the next 6 months taking into account the change
+    forecast_expenses_data = []  # List for storing projected expenses
+    forecast_incomes_data = []  # List for storing projected income
+    forecast_balance_data = []  # List for storing the projected balance
+
+    forecast_months = ['Next Month', '2nd Month', '3rd Month', '4th Month', '5th Month', '6th Month']
+
+    # Inflation rate (0.25%)
+    inflation_rate = 0.0025
+
+    # We calculate the average value for expenses and income
+    average_expenses = monthly_expenses.mean() if not monthly_expenses.empty else 0
+    average_incomes = monthly_incomes.mean() if not monthly_incomes.empty else 0
+
+    # Initial values ​​for expenses and income
+    forecast_expenses = average_expenses
+    forecast_incomes = average_incomes
+
+    # Now we create forecasts for 6 months with an increase in expenses by 25% each month
+    for i in range(6):
+        forecast_balance = forecast_incomes - forecast_expenses  # Projected balance for the month
+        
+        # Add values ​​to the corresponding lists
+        forecast_expenses_data.append(forecast_expenses)
+        forecast_incomes_data.append(forecast_incomes)
+        forecast_balance_data.append(forecast_balance)
+        
+        # Apply inflation to next month's expenses
+        forecast_expenses *= (1 + inflation_rate)
+
+    # Create a chart for forecasting the next 6 months
+    fig, ax = plt.subplots(figsize=(9, 6))
+    ax.plot(forecast_months, forecast_expenses_data, label='Forecast Expenses', marker='o', color='red')
+    ax.plot(forecast_months, forecast_incomes_data, label='Forecast Incomes', marker='o', color='green')
+    ax.plot(forecast_months, forecast_balance_data, label='Forecast Balance', marker='o', color='blue')
+    ax.set_title('Forecasted Expenses, Incomes, and Balance for Next 6 Months', fontsize=16)
+    ax.set_xlabel('Month', fontsize=12)
+    ax.set_ylabel('Amount', fontsize=12)
+    ax.legend()
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    # Annotate the predicted values
+    for i, forecast in enumerate(forecast_expenses_data):
+        ax.annotate(f'{forecast:.2f}', xy=(i, forecast), xytext=(5, 5),
+                    textcoords='offset points', color='red', fontsize=10)
+                
+    for i, forecast in enumerate(forecast_incomes_data):
+        ax.annotate(f'{forecast:.2f}', xy=(i, forecast), xytext=(5, 5),
+                    textcoords='offset points', color='green', fontsize=10)
+
+    for i, forecast in enumerate(forecast_balance_data):
+        ax.annotate(f'{forecast:.2f}', xy=(i, forecast), xytext=(5, 5),
+                    textcoords='offset points', color='blue', fontsize=10)
+
+    # Save the forecast graph to the buffer
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    forecast_chart = base64.b64encode(img.read()).decode('utf-8')
+    plt.close(fig)
+
     return render_template(
         'reports.html',
         chart=img_base64,  # Expense chart by category
         chart2=img_base64_2,  # Income and Expenses Chart by Month
+        forecast_chart=forecast_chart,  # New forecast chart
         total_incomes=total_incomes,
         total_expenses=round(total_expenses + total_subscriptions, 2),
         balance=balance,
@@ -577,6 +647,7 @@ def export_data(format):
         return send_file(output, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', as_attachment=True, download_name='financial_data.xlsx')
     else:
         return "Invalid format", 400
+
 
 
 @app.route('/import', methods=['POST'])
@@ -640,7 +711,19 @@ def import_data():
 
 
 
-
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
