@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 </head>
 <body>
     <div class="container">
@@ -27,14 +26,16 @@
             <h3>Monthly Income vs Expenses</h3>
             <img src="data:image/png;base64,{{ chart2 }}" alt="Monthly Income and Expenses Chart" class="chart">
 
+            <!-- New chart for forecasting expenses and balances -->
+            <h3>Forecasted Expenses and Balance for Next 6 Months</h3>
+            <img src="data:image/png;base64,{{ forecast_chart }}" alt="Forecasted Expenses and Balance" class="chart">
         </section>
 
         <section class="statistics">
-            <h2>Current month Expense/Income statistic </h2>
+            <h2>Current month Expense/Income statistic</h2>
             <p>Current month income : {{ current_month_incomes }}€</p>
             <p>Current month expenses: {{ current_month_total_expenses }}€</p>
             <p>Current month balance: {{ current_month_balance }}€</p>
-            
         </section>
 
         <section class="statistics">
@@ -42,15 +43,12 @@
             <p>Total income: {{ total_incomes }}€</p>
             <p>Total expenses: {{ total_expenses }}€</p>
             <p>Balance: {{ balance }}€</p>
-            
         </section>
 
         <section class="statistics">
             <h2>Subscriptions statistics</h2>
-           
             <p>Total subscriptions: {{ total_subscriptions }}€</p>
             <p>Total subscriptions this month: {{ current_month_subscriptions }}€</p>
-            
         </section>
 
         <h2>Export Data</h2>
@@ -64,22 +62,20 @@
         </div>
 
         <head>
-            <!-- Connect Font Awesome  Style -->
+            <!-- Connect Font Awesome Style -->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         </head>
-        
 
-            <h2>Import Data</h2>
-            <form action="{{ url_for('import_data') }}" method="post" enctype="multipart/form-data" class="import-form">
-                <label for="file" class="input-label">
-                    <i class="fas fa-upload"></i> Select File:
-                </label>
-                <input type="file" name="file" id="file" class="input-field">
-                <button type="submit" class="btn import-btn">
-                    <i class="fas fa-cloud-upload-alt"></i> Import
-                </button>
-            </form>
-
+        <h2>Import Data</h2>
+        <form action="{{ url_for('import_data') }}" method="post" enctype="multipart/form-data" class="import-form">
+            <label for="file" class="input-label">
+                <i class="fas fa-upload"></i> Select File:
+            </label>
+            <input type="file" name="file" id="file" class="input-field">
+            <button type="submit" class="btn import-btn">
+                <i class="fas fa-cloud-upload-alt"></i> Import
+            </button>
+        </form>
 
     </div>
 </body>
